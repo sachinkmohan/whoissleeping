@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 const SleepyHome = () => {
   const [michiganTime, setMichiganTime] = useState("");
+  const [currentHour, setCurrentHour] = useState(new Date().getHours());
 
   useEffect(() => {
     const updateMichiganTime = () => {
@@ -13,6 +14,7 @@ const SleepyHome = () => {
       // Changed to toLocaleTimeString to format time correctly
       const timeString = now.toLocaleTimeString("en-US", options); // Fixed type error by specifying the correct types
       setMichiganTime(timeString);
+      setCurrentHour(now.getHours());
     };
     updateMichiganTime();
     const intervalId = setInterval(updateMichiganTime, 60000);
@@ -35,6 +37,20 @@ const SleepyHome = () => {
           </select>
 
           <p>{michiganTime}</p>
+
+          {/* Time Block from 12-12 with 24 sections */}
+          <div className="flex mt-8 w-full max-w-4xl">
+            {Array.from({ length: 24 }).map((_, index) => (
+              <div
+                key={index}
+                className={`flex-1 h-16 border ${
+                  currentHour === index ? "bg-red-500" : "bg-gray-200"
+                }`}
+              >
+                <span className="block text-center text-black">{index}</span>
+              </div>
+            ))}
+          </div>
 
           <label htmlFor="german-timezone" className="block">
             German Time Zone
