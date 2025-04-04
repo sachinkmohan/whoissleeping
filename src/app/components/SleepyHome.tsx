@@ -18,7 +18,9 @@ const SleepyHome = () => {
     };
     updateMichiganTime();
     const intervalId = setInterval(updateMichiganTime, 60000);
+    console.log('what is here')
     return () => clearInterval(intervalId);
+
   }, []);
   return (
     <div className=" flex flex-col items-center justify-center min-h-screen bg-gray-100 text-black">
